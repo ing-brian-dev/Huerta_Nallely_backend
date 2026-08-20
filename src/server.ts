@@ -3,7 +3,7 @@ import morgan from 'morgan';
 import cors from "cors";
 import { connectDB } from '@/db';
 import { corsConfig } from '@/lib';
-import { authenticate, errorHandler, notFoundHandler } from '@/middleware';
+import { authenticate, errorHandler, notFoundHandler } from '@/middlewares';
 import { authRouter, countryRoute, customerRoute, customerTypeRoute, supplierRoute } from '@/routes';
 
 connectDB();

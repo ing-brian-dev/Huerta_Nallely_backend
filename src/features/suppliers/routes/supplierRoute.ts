@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { param } from "express-validator";
-import { validateRequest } from "@/middleware";
+import { validateRequest } from "@/middlewares";
 import { SupplierController } from "../controllers/SupplierController";
 import { validateSupplierInput } from "../middlewares/validateSupplierInput";
 

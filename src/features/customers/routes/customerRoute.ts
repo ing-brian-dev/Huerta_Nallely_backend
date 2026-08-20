@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { validateRequest } from "@/middleware";
+import { validateRequest } from "@/middlewares";
 import { param } from "express-validator";
 import { CustomerController } from "../controllers/CustomerController";
 import { validateCustomerInput } from "../middlewares/validateCustomerInput";
