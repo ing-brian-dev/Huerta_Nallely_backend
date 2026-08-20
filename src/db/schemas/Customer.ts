@@ -1,5 +1,4 @@
-import { Table, Column, Model, DataType, Default, AllowNull, ForeignKey, BelongsTo, BelongsToMany } from "sequelize-typescript";
-import { CustomerDetail } from "./CustomerDetail";
+import { Table, Column, Model, DataType, Default, AllowNull, ForeignKey, BelongsTo } from "sequelize-typescript";
 import { Country } from "./Country";
 import { CustomerType } from "./CustomerType";
 

@@ -1,4 +1,4 @@
-import { Table, Column, Model, DataType, Default, Unique, AllowNull } from "sequelize-typescript";
+import { Table, Column, Model, DataType, Default, AllowNull } from "sequelize-typescript";
 
 @Table({
     tableName: "suppliers",
