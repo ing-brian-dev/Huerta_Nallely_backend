@@ -17,13 +17,13 @@ export class Orchard extends Model {
     @Column(DataType.STRING(100))
     declare state: string;
 
-    @Column(DataType.INTEGER)
+    @Column(DataType.DECIMAL(10,2))
     declare hectares: number;
 
     @AllowNull(false)
     @Default(DataType.NOW)
-    @Column(DataType.DATE)
-    declare registration_date: Date;
+    @Column(DataType.DATEONLY)
+    declare registration_date: string;
 
     @AllowNull(false)
     @Default(1)

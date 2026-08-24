@@ -22,7 +22,7 @@ supplierRoute.get('/:id',
     SupplierController.getSupplier
 );
 
-supplierRoute.put('/:id/edit',
+supplierRoute.put('/:id',
     param('id').notEmpty().withMessage('El id es requerido'),
     validateSupplierInput,
     validateRequest,
