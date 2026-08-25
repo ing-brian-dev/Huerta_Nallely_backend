@@ -1,35 +1,56 @@
-import { Table, Column, Model, DataType, AllowNull, Default } from "sequelize-typescript";
+import {
+  Table,
+  Column,
+  Model,
+  DataType,
+  AllowNull,
+  Default,
+  HasMany,
+  PrimaryKey,
+  AutoIncrement,
+} from "sequelize-typescript";
+
+import { OrchardCrop } from "./OrchardCrop";
 
 @Table({
-    tableName: "orchards",
-    timestamps: true
+  tableName: "orchards",
+  timestamps: true,
 })
 
 export class Orchard extends Model {
 
-    @AllowNull(false)
-    @Column(DataType.STRING(100))
-    declare name: string;
+  @AllowNull(false)
+  @Column(DataType.STRING(100))
+  declare name: string;
 
-    @Column(DataType.STRING(250))
-    declare municipality: string;
+  @AllowNull(true)
+  @Column(DataType.STRING(250))
+  declare municipality: string
 
-    @Column(DataType.STRING(100))
-    declare state: string;
+  @AllowNull(true)
+  @Column(DataType.STRING(100))
+  declare state: string
 
-    @Column(DataType.DECIMAL(10,2))
-    declare hectares: number;
+  @AllowNull(true)
+  @Column(DataType.DOUBLE(10, 2))
+  declare hectares: number
 
-    @AllowNull(false)
-    @Default(DataType.NOW)
-    @Column(DataType.DATEONLY)
-    declare registration_date: string;
+  @AllowNull(false)
+  @Default(DataType.NOW)
+  @Column(DataType.DATEONLY)
+  declare registration_date: string;
 
-    @AllowNull(false)
-    @Default(1)
-    @Column(DataType.BOOLEAN)
-    declare isActive: boolean;
+  @AllowNull(false)
+  @Default(true)
+  @Column(DataType.BOOLEAN)
+  declare is_active: boolean;
 
-    @Column(DataType.STRING(250))
-    declare orchard_note: string;
+  @AllowNull(true)
+  @Column(DataType.STRING(250))
+  declare orchard_note: string
+
+  @HasMany(() => OrchardCrop, {
+    foreignKey: "id",
+  })
+  declare orchardCrops: OrchardCrop[];
 }
