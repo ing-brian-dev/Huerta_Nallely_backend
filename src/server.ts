@@ -4,7 +4,7 @@ import cors from "cors";
 import { connectDB } from '@/db';
 import { corsConfig } from '@/lib';
 import { authenticate, errorHandler, notFoundHandler } from '@/middlewares';
-import { authRouter, countryRoute, customerRoute, customerTypeRoute, supplierRoute, orchardRoute } from '@/routes';
+import { authRouter, countryRoute, customerRoute, customerTypeRoute, supplierRoute, orchardRoute, productRoute } from '@/routes';
 
 connectDB();
 export const app: Express = express();
@@ -21,6 +21,7 @@ app.use('/api/v1/customers', customerRoute);
 app.use('/api/v1/customer-types', customerTypeRoute);
 app.use('/api/v1/countries', countryRoute);
 app.use('/api/v1/orchards', orchardRoute);
+app.use('/api/v1/products', productRoute);
 
 app.use(notFoundHandler);
 app.use(errorHandler);
