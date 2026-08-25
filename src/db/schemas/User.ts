@@ -21,7 +21,7 @@ export class User extends Model {
 
     @AllowNull(true)
     @Column(DataType.DATE)
-    declare tokenExpiresAt: Date | null;
+    declare token_expires_at: Date | null;
 
     @AllowNull(true)
     @Column(DataType.STRING(36))
