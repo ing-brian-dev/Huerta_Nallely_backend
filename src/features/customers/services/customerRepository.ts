@@ -40,7 +40,7 @@ class CustomerRepository implements ICustomerRepository {
             include: [
                 {
                     model: Country,
-                    attributes: ["name", "isoCode"],
+                    attributes: ["name", "iso_code"],
                 },
                 {
                     model: CustomerType,

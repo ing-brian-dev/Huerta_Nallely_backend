@@ -4,3 +4,5 @@ export { Country } from './Country';
 export { Customer } from './Customer';
 export { CustomerType } from './CustomerType';
 export { Orchard } from './Orchard';
+export { Product } from './Product';
+export { OrchardCrop } from './OrchardCrop';

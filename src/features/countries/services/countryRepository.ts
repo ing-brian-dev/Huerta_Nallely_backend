@@ -12,7 +12,7 @@ export class CountryRepository implements ICountryRepository {
     }
 
     async getAll() {
-        return await Country.findAll({ attributes: ['id', 'name', 'isoCode'] });
+        return await Country.findAll({ attributes: ['id', 'name', 'iso_code'] });
     }
 }
 

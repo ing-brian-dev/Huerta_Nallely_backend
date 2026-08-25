@@ -14,7 +14,7 @@ export class Country extends Model {
 
     @AllowNull(false)
     @Column(DataType.STRING(100))
-    declare isoCode: string;
+    declare iso_code: string;
 
     @HasMany(() => Customer)
     declare clients: Customer[];
