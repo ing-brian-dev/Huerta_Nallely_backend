@@ -28,5 +28,5 @@ export class Supplier extends Model {
     @AllowNull(false)
     @Default(1)
     @Column(DataType.BOOLEAN)
-    declare isActive: boolean;
+    declare is_active: boolean;
 }
