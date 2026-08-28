@@ -18,7 +18,7 @@ import { Product } from "./Product";
 })
 export class OrchardCrop extends Model {
 
-    @AllowNull(true)
+    @AllowNull(false)
     @Column(DataType.DECIMAL(10, 2))
     declare hectares: number;
 
@@ -48,12 +48,12 @@ export class OrchardCrop extends Model {
     // Relationships
 
     @BelongsTo(() => Orchard, {
-        foreignKey: "id",
+        foreignKey: "orchard_id",
     })
     declare orchard: Orchard;
 
     @BelongsTo(() => Product, {
-        foreignKey: "id",
+        foreignKey: "product_id",
     })
     declare product: Product;
 }

@@ -50,7 +50,7 @@ export class Orchard extends Model {
   declare orchard_note: string
 
   @HasMany(() => OrchardCrop, {
-    foreignKey: "id",
+    foreignKey: "orchard_id",
   })
   declare orchardCrops: OrchardCrop[];
 }

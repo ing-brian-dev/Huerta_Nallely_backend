@@ -30,7 +30,7 @@ export class Product extends Model {
   declare is_active: boolean;
 
   @HasMany(() => OrchardCrop, {
-    foreignKey: "id",
+    foreignKey: "product_id",
   })
   declare orchardCrops: OrchardCrop[];
 }
