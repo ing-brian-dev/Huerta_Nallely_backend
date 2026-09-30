@@ -16,15 +16,24 @@ export class ProductService {
         return await this.productRepository.findAll();
     }
 
-    async getProductById(id: string) {
-        const product = await this.productRepository.findById(id);
+    async getProductById(id: number) {
+        const product = await this.productRepository.findById(Number(id));
         if (!product) throw ApiError.notFound('Producto No encontrado');
         return product;
     }
 
-    async updateProductById(id: string, data: InsertProduct) {
+    async getProductSearchProductByName(text: string) {
+        const products = await this.productRepository.findByName(text);
+
+        if (!products.length) {
+            throw ApiError.notFound("Productos no encontrados");
+        }
+        return products;
+    }
+
+    async updateProductById(id: number, data: InsertProduct) {
         await this.getProductById(id);
-        await this.productRepository.updateById(id, data);
+        await this.productRepository.updateById(Number(id), data);
     }
 }
 

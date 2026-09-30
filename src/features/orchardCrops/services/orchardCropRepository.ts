@@ -3,7 +3,7 @@ import { Orchard, OrchardCrop, Product } from "@/db/schemas";
 import { Op } from "sequelize";
 
 export interface IOrchardCropRepository {
-    create(data: InsertOrchardCrop): Promise<OrchardCrop>;
+    create(data: InsertOrchardCrop): Promise<void>;
     findAll(): Promise<SelectOrchardCrop[]>;
     findAllByOrchardId(orchardId: string): Promise<SelectOrchardCrop[]>;
     findById(id: string): Promise<OrchardCrop | null>;
@@ -11,32 +11,31 @@ export interface IOrchardCropRepository {
     getAssignedHectares(orchardId: number, excludedId?: string): Promise<number>;
     updateById(id: string, data: InsertOrchardCrop): Promise<void>;
     deleteById(id: string): Promise<void>;
-    findOrchardById(id: number): Promise<Orchard | null>;
-    findProductById(id: number): Promise<Product | null>;
 }
+const productSearch = { model: Product, attributes: ["id", "name"] };
+const orchardSearch = { model: Orchard, attributes: ["id", "name"] };
 
 export class OrchardCropRepository implements IOrchardCropRepository {
 
     async create(data: InsertOrchardCrop) {
-        return await OrchardCrop.create(data);
+        await OrchardCrop.create(data);
     }
 
     async findAll() {
         return await OrchardCrop.findAll({
             include: [
-                { model: Orchard, attributes: ["id", "name", "hectares"] },
-                { model: Product, attributes: ["id", "name"] },
+                orchardSearch,
+                productSearch
             ],
             order: [["id", "DESC"]],
         });
     }
 
-    async findAllByOrchardId(orchardId: string) {
+    async findAllByOrchardId(orchard_id: string) {
         return await OrchardCrop.findAll({
-            where: { orchard_id: orchardId },
+            where: { orchard_id },
             include: [
-                { model: Orchard, attributes: ["id", "name", "hectares"] },
-                { model: Product, attributes: ["id", "name"] },
+                productSearch
             ],
             order: [["id", "DESC"]],
         });
@@ -44,9 +43,12 @@ export class OrchardCropRepository implements IOrchardCropRepository {
 
     async findById(id: string) {
         return await OrchardCrop.findByPk(id, {
+            attributes: {
+                exclude: ['orchard_id', 'product_id']
+            },
             include: [
-                { model: Orchard, attributes: ["id", "name", "hectares"] },
-                { model: Product, attributes: ["id", "name"] },
+                orchardSearch,
+                productSearch
             ],
         });
     }
@@ -81,14 +83,6 @@ export class OrchardCropRepository implements IOrchardCropRepository {
 
     async deleteById(id: string) {
         await OrchardCrop.destroy({ where: { id } });
-    }
-
-    async findOrchardById(id: number) {
-        return await Orchard.findByPk(id);
-    }
-
-    async findProductById(id: number) {
-        return await Product.findByPk(id);
     }
 }
 

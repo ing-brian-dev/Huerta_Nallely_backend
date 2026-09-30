@@ -19,7 +19,7 @@ import { Product } from "./Product";
 export class OrchardCrop extends Model {
 
     @AllowNull(false)
-    @Column(DataType.DECIMAL(10, 2))
+    @Column(DataType.DOUBLE(10, 2))
     declare hectares: number;
 
     @AllowNull(true)
@@ -33,27 +33,23 @@ export class OrchardCrop extends Model {
 
     @AllowNull(true)
     @Column(DataType.STRING(500))
-    declare notes: string | null;
+    declare note: string | null;
 
     @AllowNull(false)
     @ForeignKey(() => Orchard)
-    @Column(DataType.INTEGER.UNSIGNED)
+    @Column(DataType.INTEGER)
     declare orchard_id: number;
 
     @AllowNull(false)
     @ForeignKey(() => Product)
-    @Column(DataType.INTEGER.UNSIGNED)
+    @Column(DataType.INTEGER)
     declare product_id: number;
 
     // Relationships
 
-    @BelongsTo(() => Orchard, {
-        foreignKey: "orchard_id",
-    })
+    @BelongsTo(() => Orchard)
     declare orchard: Orchard;
 
-    @BelongsTo(() => Product, {
-        foreignKey: "product_id",
-    })
+    @BelongsTo(() => Product)
     declare product: Product;
 }

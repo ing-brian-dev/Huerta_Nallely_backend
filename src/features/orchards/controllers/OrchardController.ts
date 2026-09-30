@@ -11,7 +11,7 @@ export class OrchardController {
 
     static updateOrchard = async (req: Request<{ id: string }>, res: Response) => {
         const { id } = req.params;
-        await orchardService.updateOrchardById(id, req.body);
+        await orchardService.updateOrchardById(Number(id), req.body);
         return sendSuccess(res, {}, 'Huerta actualizada correctamente!');
     }
 
@@ -22,7 +22,7 @@ export class OrchardController {
 
     static getOrchard = async (req: Request<{ id: string }>, res: Response) => {
         const { id } = req.params;
-        const orchard = await orchardService.getOrchardById(id);
+        const orchard = await orchardService.getOrchardById(Number(id));
         return sendSuccess(res, orchard, 'Huerta encontrada correctamente!');
     }
 
