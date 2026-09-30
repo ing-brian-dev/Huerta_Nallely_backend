@@ -49,8 +49,6 @@ export class Orchard extends Model {
   @Column(DataType.STRING(250))
   declare orchard_note: string
 
-  @HasMany(() => OrchardCrop, {
-    foreignKey: "orchard_id",
-  })
+  @HasMany(() => OrchardCrop )
   declare orchardCrops: OrchardCrop[];
 }

@@ -22,6 +22,12 @@ productRoute.get('/:id',
     ProductController.getProductById
 );
 
+productRoute.get('/:name/search',
+    param('name').notEmpty().withMessage('El id es requerido.'),
+    validateRequest,
+    ProductController.getProductByName
+);
+
 productRoute.put('/:id',
     param('id').notEmpty().withMessage('El id es requerido.'),
     validateProductInput,

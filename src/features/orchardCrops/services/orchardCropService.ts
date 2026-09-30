@@ -1,10 +1,15 @@
 import { ApiError } from "@/utils";
 import { InsertOrchardCrop } from "../types/orchardCrop.types";
 import { IOrchardCropRepository, orchardCropRepository, } from "./orchardCropRepository";
+import { orchardRepository } from "@/features/orchards/services/orchardRepository";
+import { IProduct, productRepository } from "@/features/products/services/productRepository";
+import { IOrchard } from "@/features/orchards/services/orchardsRepository";
 
 export class OrchardCropService {
     constructor(
-        private repository: IOrchardCropRepository
+        private orchardCropRepository: IOrchardCropRepository,
+        private orchardRepository: IOrchard,
+        private productRepository: IProduct
     ) { }
 
     async create(data: InsertOrchardCrop) {
@@ -14,25 +19,25 @@ export class OrchardCropService {
             data.orchard_id
         );
         await this.ensureUniqueRelation(data.orchard_id, data.product_id);
-        return await this.repository.create(data);
+        return await this.orchardCropRepository.create(data);
     }
 
     async getAll() {
-        return await this.repository.findAll();
+        return await this.orchardCropRepository.findAll();
     }
 
     async getAllByOrchardId(orchardId: string) {
-        const orchard = await this.repository.findOrchardById(Number(orchardId));
+        const orchard = await this.orchardRepository.findById(Number(orchardId));
         if (!orchard) throw ApiError.notFound("Huerta no encontrada.");
-        return await this.repository.findAllByOrchardId(orchardId);
+        return await this.orchardCropRepository.findAllByOrchardId(orchardId);
     }
 
     async getAvailability(orchardId: string) {
-        const orchard = await this.repository.findOrchardById(Number(orchardId));
+        const orchard = await this.orchardRepository.findById(Number(orchardId));
         if (!orchard) throw ApiError.notFound("Huerta no encontrada.");
 
         const totalHectares = Number(orchard.hectares || 0);
-        const assignedHectares = await this.repository.getAssignedHectares(
+        const assignedHectares = await this.orchardCropRepository.getAssignedHectares(
             Number(orchardId)
         );
         const availableHectares = Math.max(totalHectares - assignedHectares, 0);
@@ -52,7 +57,7 @@ export class OrchardCropService {
     }
 
     async getById(id: string) {
-        const crop = await this.repository.findById(id);
+        const crop = await this.orchardCropRepository.findById(id);
         if (!crop) throw ApiError.notFound("Relación huerta-producto no encontrada.");
         return crop;
     }
@@ -62,28 +67,28 @@ export class OrchardCropService {
         await this.validateRelations(data);
         await this.validateAvailableHectares(data.is_active === false ? 0 : data.hectares, data.orchard_id, id);
         await this.ensureUniqueRelation(data.orchard_id, data.product_id, id);
-        await this.repository.updateById(id, data);
+        await this.orchardCropRepository.updateById(id, data);
     }
 
     async delete(id: string) {
         await this.getById(id);
-        await this.repository.deleteById(id);
+        await this.orchardCropRepository.deleteById(id);
     }
 
     private async validateRelations(data: InsertOrchardCrop) {
-        const orchard = await this.repository.findOrchardById(data.orchard_id);
+        const orchard = await this.orchardRepository.findById(data.orchard_id);
         if (!orchard) throw ApiError.notFound("Huerta no encontrada.");
         if (!orchard.is_active) throw ApiError.badRequest("La huerta está inactiva.");
 
-        const product = await this.repository.findProductById(data.product_id);
+        const product = await this.productRepository.findById(Number(data.product_id));
         if (!product) throw ApiError.notFound("Producto no encontrado.");
         if (!product.is_active) throw ApiError.badRequest("El producto está inactivo.");
     }
 
     private async validateAvailableHectares(hectares: number, orchardId: number, excludedId?: string) {
 
-        const orchard = await this.repository.findOrchardById(orchardId);
-        const assignedHectares = await this.repository.getAssignedHectares(orchardId, excludedId);
+        const orchard = await this.orchardRepository.findById(orchardId);
+        const assignedHectares = await this.orchardCropRepository.getAssignedHectares(orchardId, excludedId);
 
         if (assignedHectares + hectares > Number(orchard?.hectares || 0)) {
             throw ApiError.badRequest(
@@ -93,10 +98,10 @@ export class OrchardCropService {
     }
 
     private async ensureUniqueRelation(orchardId: number, productId: number, excludedId?: string) {
-        const relation = await this.repository.findByOrchardAndProduct(orchardId, productId, excludedId);
+        const relation = await this.orchardCropRepository.findByOrchardAndProduct(orchardId, productId, excludedId);
 
         if (relation) throw ApiError.conflict("El producto ya está relacionado con esta huerta.");
     }
 }
 
-export const orchardCropService = new OrchardCropService(orchardCropRepository);
+export const orchardCropService = new OrchardCropService(orchardCropRepository, orchardRepository, productRepository);

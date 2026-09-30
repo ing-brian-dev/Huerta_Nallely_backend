@@ -46,6 +46,7 @@ export class Customer extends Model {
         allowNull: false,
     })
     declare customer_type_id: number;
+    
     @BelongsTo(() => CustomerType)
     declare customer_type: CustomerType;
 }

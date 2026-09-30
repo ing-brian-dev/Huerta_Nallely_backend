@@ -29,8 +29,6 @@ export class Product extends Model {
   @Column(DataType.BOOLEAN)
   declare is_active: boolean;
 
-  @HasMany(() => OrchardCrop, {
-    foreignKey: "product_id",
-  })
+  @HasMany(() => OrchardCrop)
   declare orchardCrops: OrchardCrop[];
 }

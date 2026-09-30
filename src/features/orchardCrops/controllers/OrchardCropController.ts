@@ -4,8 +4,8 @@ import { orchardCropService } from "../services/orchardCropService";
 
 export class OrchardCropController {
     static create = async (req: Request, res: Response) => {
-        const crop = await orchardCropService.create(req.body);
-        return sendCreated(res, crop, "Producto relacionado con la huerta correctamente.");
+        await orchardCropService.create(req.body);
+        return sendCreated(res, {}, "Producto relacionado con la huerta correctamente.");
     };
 
     static getAll = async (req: Request, res: Response) => {
@@ -13,18 +13,12 @@ export class OrchardCropController {
         return sendSuccess(res, crops, "Relaciones huerta-producto encontradas correctamente.");
     };
 
-    static getAllByOrchardId = async (
-        req: Request<{ orchardId: string }>,
-        res: Response
-    ) => {
+    static getAllByOrchardId = async (req: Request<{ orchardId: string }>, res: Response) => {
         const crops = await orchardCropService.getAllByOrchardId(req.params.orchardId);
         return sendSuccess(res, crops, "Productos de la huerta encontrados correctamente.");
     };
 
-    static getAvailability = async (
-        req: Request<{ orchardId: string }>,
-        res: Response
-    ) => {
+    static getAvailability = async (req: Request<{ orchardId: string }>, res: Response) => {
         const availability = await orchardCropService.getAvailability(
             req.params.orchardId
         );

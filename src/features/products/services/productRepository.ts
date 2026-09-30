@@ -1,11 +1,13 @@
 import { Product } from "@/db/schemas";
 import { InsertProduct, SelectProduct } from "../types/product.types";
+import { Op } from "sequelize";
 
 export interface IProduct {
     create(data: InsertProduct): Promise<void>;
     findAll(): Promise<SelectProduct[]>;
-    findById(id: string): Promise<SelectProduct>;
-    updateById(id: string, data: InsertProduct): Promise<void>;
+    findById(id: number): Promise<SelectProduct>;
+    findByName(text: string): Promise<SelectProduct[]>;
+    updateById(id: number, data: InsertProduct): Promise<void>;
 }
 
 export class ProductRepository implements IProduct {
@@ -17,11 +19,22 @@ export class ProductRepository implements IProduct {
         return await Product.findAll();
     }
 
-    async findById(id: string) {
+    async findById(id: number) {
         return await Product.findOne({ where: { id } });
     }
 
-    async updateById(id: string, data: InsertProduct) {
+    async findByName(text: string) {
+        return await Product.findAll({
+            where: {
+                name: {
+                    [Op.like]: `%${text}%`,
+                },
+            },
+            limit: 10,
+        });
+    }
+
+    async updateById(id: number, data: InsertProduct) {
         await Product.update(data, { where: { id } });
     }
 
