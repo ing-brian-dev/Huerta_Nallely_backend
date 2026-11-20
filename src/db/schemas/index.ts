@@ -6,3 +6,6 @@ export { CustomerType } from './CustomerType';
 export { Orchard } from './Orchard';
 export { Product } from './Product';
 export { OrchardCrop } from './OrchardCrop';
+export { Agrochemical } from './Agrochemical';
+export { AgrochemicalCategory } from './AgrochemicalCategory';
+export { UnitOfMeasurement } from './UnitOfMeasurement';

@@ -1,15 +1,4 @@
-import {
-  Table,
-  Column,
-  Model,
-  DataType,
-  AllowNull,
-  Default,
-  HasMany,
-  PrimaryKey,
-  AutoIncrement,
-} from "sequelize-typescript";
-
+import { Table, Column, Model, DataType, AllowNull, Default, HasMany } from "sequelize-typescript";
 import { OrchardCrop } from "./OrchardCrop";
 
 @Table({
@@ -49,6 +38,6 @@ export class Orchard extends Model {
   @Column(DataType.STRING(250))
   declare orchard_note: string
 
-  @HasMany(() => OrchardCrop )
+  @HasMany(() => OrchardCrop)
   declare orchardCrops: OrchardCrop[];
 }
