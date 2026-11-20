@@ -1,28 +1,41 @@
-import express, { type Express } from 'express';
-import morgan from 'morgan';
+import express, { type Express } from "express";
+import morgan from "morgan";
 import cors from "cors";
-import { connectDB } from '@/db';
-import { corsConfig } from '@/lib';
-import { authenticate, errorHandler, notFoundHandler } from '@/middlewares';
-import { authRouter, countryRoute, customerRoute, customerTypeRoute, supplierRoute, orchardRoute, productRoute, orchardCropRoute } from '@/routes';
+import { connectDB } from "@/db";
+import { corsConfig } from "@/lib";
+import { authenticate, errorHandler, notFoundHandler } from "@/middlewares";
+import {
+    authRouter,
+    countryRoute,
+    customerRoute,
+    customerTypeRoute,
+    supplierRoute,
+    orchardRoute,
+    productRoute,
+    orchardCropRoute,
+    agrochemicalRoute,
+    agrochemicalCategoryRoute,
+} from "@/routes";
 
 connectDB();
 export const app: Express = express();
 
 app.use(cors(corsConfig));
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 app.use(express.json());
 
-app.use('/api/v1/auth', authRouter);
+app.use("/api/v1/auth", authRouter);
 
 app.use(authenticate);
-app.use('/api/v1/suppliers', supplierRoute);
-app.use('/api/v1/customers', customerRoute);
-app.use('/api/v1/customer-types', customerTypeRoute);
-app.use('/api/v1/countries', countryRoute);
-app.use('/api/v1/orchards', orchardRoute);
-app.use('/api/v1/products', productRoute);
-app.use('/api/v1/orchard-crops', orchardCropRoute);
+app.use("/api/v1/suppliers", supplierRoute);
+app.use("/api/v1/customers", customerRoute);
+app.use("/api/v1/customer-types", customerTypeRoute);
+app.use("/api/v1/countries", countryRoute);
+app.use("/api/v1/products", productRoute);
+app.use("/api/v1/orchards", orchardRoute);
+app.use("/api/v1/orchard-crops", orchardCropRoute);
+app.use("/api/v1/agrochemicals", agrochemicalRoute);
+app.use("/api/v1/agrochemical-categories", agrochemicalCategoryRoute);
 
 app.use(notFoundHandler);
 app.use(errorHandler);

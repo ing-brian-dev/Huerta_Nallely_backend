@@ -1,5 +1,5 @@
-import type { Request, Response } from "express"
-import { authService } from "../services/AuthService"
+import type { Request, Response } from "express";
+import { authService } from "../services/AuthService";
 import { sendCreated, sendSuccess } from "@/utils";
 
 export class AuthController {
