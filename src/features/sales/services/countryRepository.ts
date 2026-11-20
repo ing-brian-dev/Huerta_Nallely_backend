@@ -1,5 +1,5 @@
 import { Country } from "@/db/schemas";
-import { SelectCountry } from "../types/country.types";
+import { SelectCountry } from "../types";
 
 export interface ICountryRepository {
     findById(id: number): Promise<SelectCountry | null>

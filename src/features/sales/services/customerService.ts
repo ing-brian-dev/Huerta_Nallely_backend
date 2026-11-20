@@ -1,7 +1,6 @@
-import { countryRepository, ICountryRepository } from "@/features/countries/services/countryRepository";
-import { customerRepository, ICustomerRepository } from "./customerRepository";
-import { InsertCustomer } from "../types/customer.types";
+import { customerRepository, ICustomerRepository, countryRepository, ICountryRepository } from "./index";
 import { ApiError } from "@/utils";
+import { InsertCustomer } from "../types/customer.types";
 
 class CustomerService {
     constructor(

@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
-import { countryService } from "../services/countryService";
-import { sendSuccess } from "@/utils";
+import { sendCreated, sendSuccess } from "@/utils";
+import { countryService } from "../services";
 
 export class CountryController {
     static getAllCountries = async (req: Request, res: Response) => {
@@ -8,3 +8,4 @@ export class CountryController {
         return sendSuccess(res, customerCountries, 'Paises econtrados exsitosamente!');
     }
 }
+

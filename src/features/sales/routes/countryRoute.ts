@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { CountryController } from "../controllers/CountryController";
+import { CountryController } from "../controllers";
 
 export const countryRoute = Router();
 

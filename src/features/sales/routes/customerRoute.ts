@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { validateRequest } from "@/middlewares";
 import { param } from "express-validator";
-import { CustomerController } from "../controllers/CustomerController";
-import { validateCustomerInput } from "../middlewares/validateCustomerInput";
+import { validateCustomerInput } from "../middleware/validateCustomerInput";
+import { CustomerController } from "../controllers";
 
 export const customerRoute = Router();
 

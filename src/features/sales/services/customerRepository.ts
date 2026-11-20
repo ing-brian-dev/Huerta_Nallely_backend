@@ -1,5 +1,5 @@
 import { Country, Customer, CustomerType } from "@/db/schemas";
-import { InsertCustomer, SelectCustomer, SelectCustomerType } from "../types/customer.types";
+import { InsertCustomer, SelectCustomer, SelectCustomerType } from "../types";
 
 export interface ICustomerRepository {
     create(data: InsertCustomer): Promise<void>;

@@ -1,9 +1,9 @@
 import type { Request, Response } from "express";
 import { sendCreated, sendSuccess } from "@/utils";
-import { customerService } from "../services/customerService";
+import { customerService } from "../services";
 
 export class CustomerController {
-
+    // Customers
     static createCustomer = async (req: Request, res: Response) => {
         await customerService.createCustomer(req.body);
         return sendCreated(res, {}, 'Cliente Creado Correcamente!');
@@ -26,7 +26,6 @@ export class CustomerController {
         return sendSuccess(res, customers, 'Clientes encontrados exitosamente!');
     }
 
-    //Customer Types
     static getAllCustomerTypes = async (req: Request, res: Response) => {
         const customerTypes = await customerService.getAllCustomerTypes();
         return sendSuccess(res, customerTypes, 'Tipos de clientes econtrados exitosamente!');
