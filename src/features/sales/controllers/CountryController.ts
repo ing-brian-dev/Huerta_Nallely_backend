@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { sendCreated, sendSuccess } from "@/utils";
+import { sendSuccess } from "@/utils";
 import { countryService } from "../services";
 
 export class CountryController {

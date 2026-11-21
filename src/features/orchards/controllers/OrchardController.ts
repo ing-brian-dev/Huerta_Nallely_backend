@@ -1,6 +1,6 @@
 import type { Request, Response } from "express"
-import { orchardService } from "../services/orchardService"
 import { sendCreated, sendSuccess } from "@/utils";
+import { orchardService } from "../services";
 
 export class OrchardController {
 
