@@ -1,11 +1,10 @@
 import { ApiError } from "@/utils";
-import { InsertProduct } from "../types/product.types";
-import { IProduct, productRepository } from "./productRepository";
-
+import { IProductRepository, productRepository } from "./index";
+import { InsertProduct } from "../types";
 
 export class ProductService {
     constructor(
-        private productRepository: IProduct
+        private productRepository: IProductRepository
     ) { }
 
     async createProduct(data: InsertProduct) {

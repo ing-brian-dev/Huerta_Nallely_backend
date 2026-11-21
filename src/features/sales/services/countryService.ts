@@ -1,5 +1,4 @@
-import { countryRepository, ICountryRepository } from "./countryRepository";
-
+import { countryRepository, ICountryRepository } from "./index";
 
 export class CountryService {
     constructor(

@@ -1,4 +1,5 @@
 export { countryRepository, ICountryRepository } from './countryRepository';
-export { countryService } from './countryService';
 export { customerRepository, ICustomerRepository } from './customerRepository';
+
+export { countryService } from './countryService';
 export { customerService } from './customerService';

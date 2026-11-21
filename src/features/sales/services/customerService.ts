@@ -1,6 +1,6 @@
+import { InsertCustomer } from "../types";
 import { customerRepository, ICustomerRepository, countryRepository, ICountryRepository } from "./index";
 import { ApiError } from "@/utils";
-import { InsertCustomer } from "../types/customer.types";
 
 class CustomerService {
     constructor(

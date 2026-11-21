@@ -1,10 +1,10 @@
 import { ApiError } from "@/utils";
-import { InsertOrchard } from "../types/orchards.types";
-import { IOrchard, orchardRepository } from "./orchardsRepository";
+import { InsertOrchard } from "../types";
+import { IOrchardRepository, orchardRepository } from "./index";
 
 export class OrchardService {
     constructor(
-        private orchardRepository: IOrchard
+        private orchardRepository: IOrchardRepository
     ) { }
 
     async createOrchard(data: InsertOrchard) {
@@ -21,7 +21,7 @@ export class OrchardService {
             );
         }
 
-        await this.orchardRepository.updateById(id, data);
+        await this.orchardRepository.updateById(Number(id), data);
     }
 
     async getAllOrchards() {

@@ -1,7 +1,7 @@
 import { Orchard, OrchardCrop, Product } from "@/db/schemas";
-import { InsertOrchard, SelectOrchard } from "../types/orchards.types";
+import { InsertOrchard, SelectOrchard } from "../types";
 
-export interface IOrchard {
+export interface IOrchardRepository {
     create(data: InsertOrchard): Promise<void>;
     findAll(): Promise<SelectOrchard[]>;
     findById(id: number): Promise<SelectOrchard>;
@@ -20,7 +20,7 @@ const orchardCropSearch = {
 };
 
 
-export class OrchardRepository implements IOrchard {
+export class OrchardRepository implements IOrchardRepository {
     async create(data: InsertOrchard) {
         await Orchard.create(data);
     }

@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { param } from "express-validator";
 import { validateRequest } from "@/middlewares";
-import { OrchardCropController } from "../controllers/OrchardCropController";
-import { validateOrchardCropInput } from "../middlewares/validateOrchardCropInput";
+import { validateOrchardCropInput } from "../middlewares";
+import { OrchardCropController } from "../controllers";
 
 export const orchardCropRoute = Router();
 

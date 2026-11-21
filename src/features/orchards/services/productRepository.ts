@@ -1,8 +1,8 @@
-import { Product } from "@/db/schemas";
-import { InsertProduct, SelectProduct } from "../types/product.types";
 import { Op } from "sequelize";
+import { Product } from "@/db/schemas";
+import { InsertProduct, SelectProduct } from "../types";
 
-export interface IProduct {
+export interface IProductRepository {
     create(data: InsertProduct): Promise<void>;
     findAll(): Promise<SelectProduct[]>;
     findById(id: number): Promise<SelectProduct>;
@@ -10,7 +10,7 @@ export interface IProduct {
     updateById(id: number, data: InsertProduct): Promise<void>;
 }
 
-export class ProductRepository implements IProduct {
+export class ProductRepository implements IProductRepository {
     async create(data: InsertProduct) {
         await Product.create(data);
     }

@@ -1,6 +1,6 @@
 import type { Request, Response } from "express"
-import { productService } from "../services/productService"
-import { sendCreated, sendNoContent, sendSuccess } from "@/utils";
+import { sendCreated, sendSuccess } from "@/utils";
+import { productService } from "../services";
 
 export class ProductController {
     static createProduc = async (req: Request, res: Response) => {
@@ -15,7 +15,7 @@ export class ProductController {
 
     static getProductById = async (req: Request<{ id: string }>, res: Response) => {
         const { id } = req.params;
-        const product = await productService.getProductById(id);
+        const product = await productService.getProductById(Number(id));
         return sendSuccess(res, product, 'Producto Encontrado correctamente!');
     }
 
@@ -27,7 +27,7 @@ export class ProductController {
 
     static updateProductById = async (req: Request<{ id: string }>, res: Response) => {
         const { id } = req.params;
-        await productService.updateProductById(id, req.body);
+        await productService.updateProductById(Number(id), req.body);
         return sendSuccess(res, {}, 'Producto Editado Correctamente!');
     }
 }
